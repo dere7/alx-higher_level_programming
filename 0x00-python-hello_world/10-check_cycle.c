@@ -7,11 +7,12 @@
  */
 int check_cycle(listint_t *list)
 {
-	listint_t *head = list;
+	listint_t *head = list, *h;
 
 	for (; head->next != NULL; head = head->next)
-		if (head->next == list)
-			return (1);
+		for(h = list; h != head; h = h->next)
+			if(head->next == h)
+				return (1);
 	return (0);
 }
 
