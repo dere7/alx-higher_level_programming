@@ -45,7 +45,7 @@ int *getarray(listint_t *head)
 int is_palindrome(listint_t **head)
 {
 	size_t len, i;
-	int *list, item;
+	int *list;
 
 	if (*head == NULL)
 		return (1);
