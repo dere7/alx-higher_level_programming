@@ -40,12 +40,12 @@ class Square:
 
     @property
     def position(self):
-        ''' gets position of the square '''
+        ''' gets position of the square.'''
         return self.__position
 
     @position.setter
     def position(self, value):
-        ''' sets position of square
+        ''' sets position of square which offsets the the square that will be drawn
             Args:
                 value (tuple): pair of x and y which are positive integers
         '''
