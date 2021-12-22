@@ -16,3 +16,9 @@ TypeError: a must be an integer
 Traceback (most recent call last):
 ...
 TypeError: b must be an integer
+
+check for overflow
+>>> add_integer(4, None)
+Traceback (most recent call last):
+...
+TypeError: b must be an integer

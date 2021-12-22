@@ -14,3 +14,4 @@ try:
 except Exception as e:
     print(e)
 
+print(add_integer(34.3e100, 2))
