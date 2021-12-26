@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-import json
 """
 contains a function that saves serialized object to file
 """
+import json
 
 
 def save_to_json_file(my_obj, filename):
