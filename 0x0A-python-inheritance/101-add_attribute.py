@@ -7,6 +7,6 @@ def add_attribute(obj, key, value):
     it is equivalent to ``x.y = v``
     """
     immutables = [int, float, bool, str, tuple, range]
-    if type(obj) in immutables:
+    if type(obj) in immutables or '__slots__' in dir(obj):
         raise TypeError("can't add new attribute")
     setattr(obj, key, value)
