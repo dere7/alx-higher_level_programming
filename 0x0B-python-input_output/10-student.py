@@ -27,7 +27,6 @@ class Student:
         dic = vars(self)
         if attrs is None:
             return dic
-        newDic = dict()
         for i in list(dic.keys()):
             if i not in attrs:
                 del dic[i]

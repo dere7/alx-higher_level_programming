@@ -9,6 +9,7 @@ def load_from_json_file(filename):
     """
     loads deserialized object from file
     :param filename: filename to be saved to
+    :param filename: filename to be saved to
     :return: object
     """
     with open(filename, encoding="utf-8") as f:
