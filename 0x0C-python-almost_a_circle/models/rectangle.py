@@ -89,6 +89,24 @@ class Rectangle(Base):
         return f'[Rectangle] ({self.id}) {self.x}/{self.y} - ' \
                f'{self.width}/{self.height}'
 
+    def update(self, *args, **kwargs):
+        """updates attributes of Rectangle"""
+        if len(args) != 0:
+            for i in range(len(args)):
+                if i == 0:
+                    self.id = args[i]
+                elif i == 1:
+                    self.width = args[i]
+                elif i == 2:
+                    self.height = args[i]
+                elif i == 3:
+                    self.x = args[i]
+                elif i == 4:
+                    self.y = args[i]
+        else:
+            for key, value in kwargs.items():
+                setattr(self, key, value)
+
     def area(self):
         '''returns the area of the rectangle'''
         return self.height * self.width

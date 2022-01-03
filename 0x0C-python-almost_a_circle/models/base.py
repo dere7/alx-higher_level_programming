@@ -6,7 +6,7 @@ unnecessary redundancy.
 
 
 class Base:
-    """base of all other classes in this project. It
+    """base of all other :classes in this project. It
     manages id attribute in all classes and to avoid duplicating
     the same code"""
     __nb_objects = 0
