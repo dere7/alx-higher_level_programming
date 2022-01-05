@@ -43,3 +43,11 @@ class Square(Rectangle):
                 kwargs['width'] = size
                 kwargs['height'] = size
             super().update(**kwargs)
+
+    def to_dictionary(self):
+        """Dictionary repr of sqaure."""
+        dic = super().to_dictionary()
+        del dic['width']
+        del dic['height']
+        dic['size'] = self.size
+        return dic

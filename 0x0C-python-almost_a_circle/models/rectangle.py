@@ -120,3 +120,8 @@ class Rectangle(Base):
                 string += str(self.print_symbol)
             string += '\n' if self.width != 0 and i + 1 != self.height else ''
         print(string)
+
+    def to_dictionary(self):
+        '''dictionary representation of Rectangle'''
+        return dict([('x', self.x), ('y', self.y), ('id', self.id),
+                     ('height', self.height), ('width', self.width)])

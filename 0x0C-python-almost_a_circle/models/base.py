@@ -3,6 +3,7 @@
 contains a base class that manages id attribute to remove
 unnecessary redundancy.
 """
+import json
 
 
 class Base:
@@ -29,3 +30,18 @@ class Base:
             raise ValueError(f'{name} must be > 0')
         if isGreaterThanOrEqual and value < 0:
             raise ValueError(f'{name} must be >= 0')
+
+    @staticmethod
+    def to_json_string(list_dictionaries):
+        '''JSON repr of list_dictionaries'''
+        if list_dictionaries is None:
+            return '[]'
+        return json.dumps(list_dictionaries)
+
+    @classmethod
+    def save_to_file(cls, list_objs):
+        """writes JSON string repr of list_objs to a file
+        :arg
+        :param list_objs: list of instances who inherits of Base"""
+        with open(cls.__name__ + '.json', 'w') as f:
+            f.write(Base.to_json_string([obj.to_dictionary() for obj in list_objs]))
