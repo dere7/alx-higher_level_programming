@@ -5,7 +5,7 @@ from .base import Base
 
 
 class Rectangle(Base):
-    """Defines Rectange class having print_symbol and number_of_instance"""
+    """Defines Rectangle class having print_symbol and number_of_instance"""
     print_symbol = '#'
 
     def __init__(self, width, height, x=0, y=0, id=None):
@@ -20,12 +20,8 @@ class Rectangle(Base):
         self.width = width
         self.height = height
 
-    # def __del__(self):
-    #     """some cleanups when the object is destoryed"""
-    #     print('Bye rectangle...')
-
     def __repr__(self):
-        '''formal represenation of Rectangle Object'''
+        '''formal representation of Rectangle Object'''
         return 'Rectangle({:d}, {:d})'.format(self.width, self.height)
 
     @property
@@ -124,33 +120,3 @@ class Rectangle(Base):
                 string += str(self.print_symbol)
             string += '\n' if self.width != 0 and i + 1 != self.height else ''
         print(string)
-
-    def perimeter(self):
-        '''returns the perimeter of the rectangle'''
-        if self.height == 0 or self.width == 0:
-            return 0
-        return 2 * (self.height + self.width)
-
-    @staticmethod
-    def bigger_or_equal(rect_1, rect_2):
-        '''compares two Rectangle objects
-        Args:
-            rect_1(Rectangle): object of Rectangle class
-            rect_2(Rectangle): object of Rectangle class
-        Return: rect_1 if the area of rect_1 is greater than or
-                equal to rect_2 otherwise return rect_2
-        '''
-        if type(rect_1) is not Rectangle:
-            raise TypeError('rect_1 must be an instance of Rectangle')
-        if type(rect_2) is not Rectangle:
-            raise TypeError('rect_2 must be an instance of Rectangle')
-        return rect_1 if rect_1.area() >= rect_2.area() else rect_2
-
-    @classmethod
-    def square(cls, size=0):
-        """create square using Rectangle
-        Args:
-            cls:
-            size: size of square
-        """
-        return cls(size, size)

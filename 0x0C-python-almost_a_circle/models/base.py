@@ -24,7 +24,7 @@ class Base:
         :raises: TypeError
         :raises: ValueError"""
         if type(value) is not int:
-            raise TypeError(f'{name}  must be an integer')
+            raise TypeError(f'{name} must be an integer')
         if value <= 0 and not isGreaterThanOrEqual:
             raise ValueError(f'{name} must be > 0')
         if isGreaterThanOrEqual and value < 0:
