@@ -44,4 +44,25 @@ class Base:
         :arg
         :param list_objs: list of instances who inherits of Base"""
         with open(cls.__name__ + '.json', 'w') as f:
-            f.write(Base.to_json_string([obj.to_dictionary() for obj in list_objs]))
+            f.write(
+                Base.to_json_string([obj.to_dictionary() for obj in list_objs]
+                                    if list_objs is not None else []))
+
+    @staticmethod
+    def from_json_string(json_string):
+        """returns a list of JSON string repr json_string"""
+        return json.loads(json_string)
+
+    @classmethod
+    def create(cls, **dictionary):
+        """creates an instance with all attributes already set"""
+        obj = cls(1, 1)
+        obj.update(**dictionary)
+        return obj
+
+    @classmethod
+    def load_from_file(cls):
+        """loads list of instances from files"""
+        with open(cls.__name__ + '.json') as f:
+            list_objs = json.load(f)
+        return [cls.create(**dic) for dic in list_objs]
