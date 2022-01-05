@@ -51,18 +51,24 @@ class Base:
     @staticmethod
     def from_json_string(json_string):
         """returns a list of JSON string repr json_string"""
-        return json.loads(json_string)
+        return json.loads(json_string) if json_string is not None else '[]'
 
     @classmethod
     def create(cls, **dictionary):
         """creates an instance with all attributes already set"""
-        obj = cls(1, 1)
+        if dictionary.get('size') is not None:
+            obj = cls(1)
+        else:
+            obj = cls(1, 1)
         obj.update(**dictionary)
         return obj
 
     @classmethod
     def load_from_file(cls):
         """loads list of instances from files"""
-        with open(cls.__name__ + '.json') as f:
-            list_objs = json.load(f)
+        try:
+            with open(cls.__name__ + '.json') as f:
+                list_objs = Base.from_json_string(f.read())
+        except FileNotFoundError:
+            return []
         return [cls.create(**dic) for dic in list_objs]
