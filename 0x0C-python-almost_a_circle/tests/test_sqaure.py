@@ -33,7 +33,7 @@ class TestSquareDocs(unittest.TestCase):
     def test_func_docstrings(self):
         """Tests for the presence of docstrings in all functions"""
         for func in self.sq_funcs:
-            self.assertTrue(len(func[1].__doc__) >= 1)
+            self.assertTrue(len(func.__doc__) >= 1)
 
 
 class TestSquare(unittest.TestCase):

@@ -52,7 +52,8 @@ class Base:
     @staticmethod
     def from_json_string(json_string):
         """returns a list of JSON string repr json_string"""
-        return json.loads(json_string) if json_string is not None else []
+        return [] if json_string is None or json_string == ''\
+            else json.loads(json_string)
 
     @classmethod
     def create(cls, **dictionary):
@@ -98,7 +99,34 @@ class Base:
         """deserializes csv from file"""
         try:
             with open(cls.__name__ + '.csv', newline='') as f:
-                reader = csv.DictReader(f, cls.get_fields())
-                return [cls.create(**row) for row in reader]
+                reader = csv.reader(f)
+                return [cls.create(**dict(zip(cls.get_fields(),
+                        [int(i) for i in row]))) for row in reader]
         except FileNotFoundError:
             return []
+
+    @staticmethod
+    def rand_color():
+        from random import randint
+        return randint(0, 255), randint(0, 255), randint(0, 255)
+
+    @staticmethod
+    def draw(list_rectangles, list_squares):
+        """draws all the recrangles and squares
+        :arg
+            :param list_rectangles: list of rectangle objs
+            :param list_squares: list of square objs
+        """
+        import turtle
+        turtle.width(3)
+        for obj in list_rectangles + list_squares:
+            turtle.colormode(255)
+            turtle.color(Base.rand_color(), Base.rand_color())
+            turtle.penup()
+            turtle.setpos(obj.x, obj.y)
+            turtle.pendown()
+            turtle.begin_fill()
+            for i in [obj.width, obj.height] * 2:
+                turtle.forward(i)
+                turtle.right(90)
+            turtle.end_fill()
