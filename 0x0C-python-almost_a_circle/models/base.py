@@ -4,6 +4,7 @@ contains a base class that manages id attribute to remove
 unnecessary redundancy.
 """
 import json
+import csv
 
 
 class Base:
@@ -51,12 +52,12 @@ class Base:
     @staticmethod
     def from_json_string(json_string):
         """returns a list of JSON string repr json_string"""
-        return json.loads(json_string) if json_string is not None else '[]'
+        return json.loads(json_string) if json_string is not None else []
 
     @classmethod
     def create(cls, **dictionary):
         """creates an instance with all attributes already set"""
-        if dictionary.get('size') is not None:
+        if 'size' in dictionary:
             obj = cls(1)
         else:
             obj = cls(1, 1)
@@ -72,3 +73,32 @@ class Base:
         except FileNotFoundError:
             return []
         return [cls.create(**dic) for dic in list_objs]
+
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        """Serializes and saves csv to a file"""
+        with open(cls.__name__ + '.csv', 'w', newline='') as f:
+            writer = csv.DictWriter(f, cls.get_fields(),
+                                    quoting=csv.QUOTE_MINIMAL)
+            for obj in list_objs:
+                writer.writerow(obj.to_dictionary())
+
+    @classmethod
+    def get_fields(cls):
+        fieldnames = ['id', 'x', 'y']
+        if cls.__name__ == 'Square':
+            fieldnames.insert(1, 'size')
+        else:
+            fieldnames.insert(1, 'width')
+            fieldnames.insert(2, 'height')
+        return fieldnames
+
+    @classmethod
+    def load_from_file_csv(cls):
+        """deserializes csv from file"""
+        try:
+            with open(cls.__name__ + '.csv', newline='') as f:
+                reader = csv.DictReader(f, cls.get_fields())
+                return [cls.create(**row) for row in reader]
+        except FileNotFoundError:
+            return []

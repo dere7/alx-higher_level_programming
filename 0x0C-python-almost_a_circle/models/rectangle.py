@@ -101,7 +101,7 @@ class Rectangle(Base):
                     self.y = args[i]
         else:
             for key, value in kwargs.items():
-                setattr(self, key, value)
+                setattr(self, key, int(value))
 
     def area(self):
         '''returns the area of the rectangle'''
