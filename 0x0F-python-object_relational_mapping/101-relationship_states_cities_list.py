@@ -14,6 +14,6 @@ if __name__ == '__main__':
     for row in session.query(State).order_by(State.id):
         print(f'{row.id}: {row.name}')
         for city in row.cities:
-            print(f'    {city.id}: {city.name}')
+            print(f'\t{city.id}: {city.name}')
     session.commit()
     session.close()
