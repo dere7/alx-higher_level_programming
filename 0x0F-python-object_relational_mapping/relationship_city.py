@@ -13,8 +13,6 @@ class City(Base):
     name = Column(String(128), nullable=False)
     state_id = Column(Integer, ForeignKey('states.id'))
 
-    state = relationship('State', back_populates='cities')
-
     def __repr__(self):
         return f'<City(id={self.id}, name={self.name}), \
             state_id={self.state_id}>'
