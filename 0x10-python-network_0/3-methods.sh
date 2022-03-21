@@ -1,3 +1,3 @@
 #!/bin/bash
 # sends delete request and displays the body of the response
-curl -i -X OPTIONS "$1"
+curl -s -i "$1" | grep "Allow" | cut -c 8-
