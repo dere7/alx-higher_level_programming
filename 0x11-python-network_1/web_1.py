@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """ Web server
 """
+from crypt import methods
+import json
 from random import random
 from flask import Flask, request, make_response
 app = Flask(__name__)
@@ -18,6 +20,22 @@ def index():
 @app.route('/post_email', methods=["GET", "POST"])
 def post_email():
     return f'Your email is: {request.form["email"]}'
+
+
+@app.route('/search_user', methods=['POST'])
+def search_user():
+    users = [
+        {'id': 2, 'name': 'User1'},
+        {'id': 4, 'name': 'User2'},
+    ]
+    q = request.query_string.decode('utf-8').split('=')[1]
+    print(q)
+    if not q:
+        return 'tet'
+    for u in users:
+        if q in u['name']:
+            return json.dumps(u)
+    return ''
 
 
 if __name__ == "__main__":
