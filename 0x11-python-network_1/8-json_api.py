@@ -7,14 +7,13 @@ from sys import argv
 
 if __name__ == '__main__':
     url = "http://0.0.0.0:5000/search_user"
-    params = {'q': argv[1] if len(argv) >= 2 else ''}
+    data = {'q': argv[1] if len(argv) >= 2 else ''}
     try:
-        res = requests.post(url, params=params)
-        if res.text == '':
+        res = requests.post(url, data=data)
+        if res.json() == {}:
             print('No result')
         else:
             user = res.json()
-            print(f'[{user["id"]}] {user["name"]}')
-    except requests.exceptions.JSONDecodeError as e:
-        print('Invalid JSON')
- 
+            print(f'[{user.get("id")}] {user.get("name")}')
+    except ValueError:
+        print('Not a valid JSON')

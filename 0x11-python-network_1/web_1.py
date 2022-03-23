@@ -4,7 +4,7 @@
 from crypt import methods
 import json
 from random import random
-from flask import Flask, request, make_response
+from flask import Flask, jsonify, request, make_response
 app = Flask(__name__)
 
 
@@ -22,20 +22,18 @@ def post_email():
     return f'Your email is: {request.form["email"]}'
 
 
-@app.route('/search_user', methods=['POST'])
+@app.route("/search_user", methods=['POST'], strict_slashes=False)
 def search_user():
-    users = [
-        {'id': 2, 'name': 'User1'},
-        {'id': 4, 'name': 'User2'},
-    ]
-    q = request.query_string.decode('utf-8').split('=')[1]
-    print(q)
-    if not q:
-        return 'tet'
-    for u in users:
-        if q in u['name']:
-            return json.dumps(u)
-    return ''
+    data = {}
+    q = request.form.get("q")
+    print(request.url, q)
+    if q is not None and type(q) is str and len(q) > 0 and ord(q[0]) in range(97,123):
+        first_letter = q[0]
+        data['name'] = "{}{}".format(q, "olberton")
+        data['id'] = 89
+    res = jsonify(data)
+    res.headers["Content-Type"] = "application/json"
+    return res
 
 
 if __name__ == "__main__":
