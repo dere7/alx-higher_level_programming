@@ -2,25 +2,21 @@
 const request = require('request');
 const { argv } = require('process');
 
-const url = argv[2] + '?completed=true';
-let users = 'https://jsonplaceholder.typicode.com/users';
+const url = argv[2];
 request(url, function (err, res) {
   if (err) console.log(err);
   else {
-    const todos = JSON.parse(res.body);
-    console.log(todos);
+    const todos = JSON.parse(res.body).filter(function (todo) {
+      return todo.completed;
+    });
     const completed = {};
-    // for (const user of users) {
-    //   users += '/' + user.id + '/todos/?completed=true';
-    //   request(users, function (err, res) {
-    //     if (err) console.log(err);
-    //     else {
-    //       // let json = JSON.parse(res.body);
-    //       // console.log(json);
-    //       // completed[user.id] =json.length;
-    //     }
-    //   });
-    // }
+    for (const todo of todos) {
+      if (completed[todo.userId]) {
+        completed[todo.userId]++;
+      } else {
+        completed[todo.userId] = 1;
+      }
+    }
     console.log(completed);
   }
 });
